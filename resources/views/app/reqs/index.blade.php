@@ -1,3 +1,4 @@
+{{-- app/reqs/index.blade.php --}}
 @extends('app/layout/main_layout')
 
 @section('head')
@@ -10,7 +11,7 @@
     <div class="container">
         <h4>Обработка заявок </h4>
         <br>
-        <!-- will be used to show any messages -->
+
         @if (Session::has('message'))
             <div class="alert alert-info">{{ Session::get('message') }}</div>
         @endif
