@@ -49,7 +49,7 @@
                             </div>
                             <div style="margin:5px;">
                                 <a class="btn btn-small btn-warning"
-                                   href="{{ URL::to('reqs/' . $value->marking . '/edit') }}">
+                                   href="{{ URL::to('reqs/' . $value->id . '/edit') }}">
                                     Изменить</a>
                             </div>
 
