@@ -6,18 +6,27 @@ use App\Models\Doc;
 
 class PageController extends Controller
 {
-    public function setuser()
+    public function test()
     {
 //        $userdata = json_decode($_COOKIE['userdata']);
 //        echo $userdata->name;
 //            echo json_encode('{"value":"'. print_r($_GET['value']) .'"}');
         //print_r($_GET['userdata']);
-   /*     $userdata = json_encode($_GET['userdata']);
-        session(['username' => $userdata->name]);
-        session(['usertype' => $userdata->usertype]);
-        session(['user_is_logged' => $userdata->is_user_logged]);
-*/
-echo "test 123";
+
+        $user = session('username');
+        $usertype = session('usertype');
+        $is_user_logged = session('is_user_logged');
+
+        if (isset($_GET['userdata'])) {
+            $userdata = json_decode($_GET['userdata']);
+
+            session('username', $userdata->name);
+            session('usertype', $userdata->usertype);
+            session('is_user_logged', $userdata->is_user_logged);
+
+            echo "test 123";
+
+        }
 //        echo $userdata->usertype;
         /*$fn  = $_POST['fn'];
         $str = $_POST['str'];
@@ -35,19 +44,20 @@ echo "test 123";
 
     public function showHome()
     {
-
-        return view('app/pages/main')->with('activeNav', 'main');
-
+        $activeNav = UrlUtility::getActiveLinkArray('main');
+        return view('app/pages/main')->with('activeNav', $activeNav);
     }
 
     public function showRequests()
     {
-        return view('app/pages/requests')->with('activeNav', 'requests');
+        $activeNav = UrlUtility::getActiveLinkArray('requests');
+        return view('app/pages/requests')->with('activeNav', $activeNav);
     }
 
     public function operationDoc()
     {
-        return view('app/pages/operation_doc')->with('activeNav', 'main');
+        $activeNav = UrlUtility::getActiveLinkArray('main');
+        return view('app/pages/operation_doc')->with('activeNav', $activeNav);
     }
 
     public function showMessages()
@@ -59,7 +69,8 @@ echo "test 123";
             echo $user->name ." ". $user->usertype ."<br>";
         }*/
 
-        //return view('app/pages/messages')->with('activeNav', 'messages');
+        $activeNav = UrlUtility::getActiveLinkArray('messages');
+        return view('app/pages/messages')->with('activeNav', $activeNav);
     }
 
     public function viewDoc($name)
@@ -69,8 +80,10 @@ echo "test 123";
         $marking = $doc->marking;
         $source = url(config('app.pdf_view') . $doc->reference);
         $descr = $doc->description;
+        $activeNav = UrlUtility::getActiveLinkArray('main');
+
         return view('app/pages/viewer')
-            ->with('activeNav', 'main')
+            ->with('activeNav', $activeNav)
             ->with('source', $source)
             ->with('marking', $marking)
             ->with('descr', $descr);

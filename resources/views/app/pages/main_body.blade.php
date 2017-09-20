@@ -6,7 +6,7 @@
             <table id="example" class="display" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th>Обозначение
+                    <th>Обозначение</th>
                     <th>Наименование</th>
                     <th>Тип документа</th>
                     <th>Статус</th>

@@ -13,7 +13,7 @@
             <p style="font-size: 18px">
                 <strong>Название:</strong> {{ $req->description }}<br><br>
                 <strong>Статус документа:</strong> {{ $req->status }}<br><br>
-                <strong>Дата создания:</strong> {{ $req->create_date }}<br><br>
+                <strong>Дата создания:</strong> {{ $req->created_at }}<br><br>
                 <strong>Автор:</strong> {{ $req->author }}<br><br>
                 <strong>Исполнитель</strong> {{ $req->performer }}<br><br>
                 <strong>Дата обработки</strong> {{ $req->performdate }}<br><br>

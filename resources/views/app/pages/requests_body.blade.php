@@ -3,7 +3,7 @@
             <section>
             <span>
             <label style="font-size: 16px;">Список заявок от пользователей</label>
-            <a href="{{ asset('/create_request') }}" class="btn btn-primary" style="float: right;">Подать заявку</a>            
+                <a href="{{ url('reqs/create') }}" class="is_user btn btn-primary " style="float: right;">Подать заявку</a>
             </span>
                 <br>
                 <div class="demo-html"></div>

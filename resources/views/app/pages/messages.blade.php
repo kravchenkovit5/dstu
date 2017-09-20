@@ -6,5 +6,5 @@
 
 @section('body')   
 @include('app/bars/navbar')    
-
+@include('app/pages/messages_body')
 @endsection

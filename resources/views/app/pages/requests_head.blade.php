@@ -27,9 +27,9 @@
             var table = $('#example').DataTable({
                 stateSave: true,
                 "bFilter": false, //срыть поиск поле
-                "language": {"url": "{{ asset('js/Russian.json') }}"},
                 //"serverSide": true,
-                "ajax": "{{ asset('scripts/request.select.php') }}",
+                "ajax": "{{ asset('/select_requests') }}",
+                "language": {"url": "{{ asset('js/Russian.json') }}"},
 				"fnRowCallback": function( nRow, Data, iDisplayIndex, iDisplayIndexFull ) {
                     if ( Data[2] == "Выполнена" )
                     {

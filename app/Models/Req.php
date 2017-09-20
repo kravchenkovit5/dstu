@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed description
+ * @property mixed name
+ * @property int status
+ * @property string author
+ */
 class Req extends Model
 {
     protected $primaryKey = "id";

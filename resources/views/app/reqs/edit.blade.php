@@ -15,7 +15,7 @@
         {{ Form::model($req, array('route' => array('reqs.update', $req->id), 'method' => 'PUT')) }}
 
         <div class="form-group">
-            {{ Form::label('name', 'Имя') }}
+            {{ Form::label('name', 'Название') }}
             {{ Form::text('name', null, array('class' => 'form-control', 'readonly')) }}
         </div>
 
@@ -26,7 +26,7 @@
 
         <div class="form-group">
             {{ Form::label('status', 'Статус:') }}
-            {{ Form::select('status', $statuses, $req->status, ['class' => 'form-control'] )
+            {{ Form::select('status', $statuses, $req->getOriginal('status'), ['class' => 'form-control'] )
             }}
         </div>
 
@@ -36,8 +36,13 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('create_date', 'Дата создания:') }}
-            {{ Form::text('create_date', null, array('class' => 'form-control','readonly')) }}
+            {{ Form::label('created_at', 'Дата создания:') }}
+            {{ Form::text('created_at', null, array('class' => 'form-control','readonly')) }}
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('created_at', 'Автор:') }}
+            {{ Form::text('author', null, array('class' => 'form-control','readonly')) }}
         </div>
 
         <div class="form-group">

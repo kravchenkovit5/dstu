@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Scripts\SSP;
 use App\Models\StatusDocument;
 use App\Models\TypeDocuments;
 use ErrorException;
-use Illuminate\Support\Facades\App;
 use Throwable;
 use App\Models\Doc;
 use Illuminate\Support\Facades\Input;
@@ -18,21 +16,21 @@ use Illuminate\Http\Request;
 
 class DocController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     */
+    
+
     public function index()
     {
-        //$docs = Doc::with('mtype')->get();
+
         $docs = Doc::all();
-        // load the view and pass the docs
+        $activeNav = UrlUtility::getActiveLinkArray('main');
+
         return view('app.docs.index')
-            ->with('activeNav', 'main')
+            ->with('activeNav', $activeNav)
             ->with('docs', $docs);
+
     }
 
-    public function selectdocs()
+    public function selectDocs()
     {
 //        $table = 'docs';
 //        $primaryKey = 'marking';
@@ -88,9 +86,10 @@ class DocController extends Controller
         $statusdoc[0] = 'Выберите статус стандарта';
         asort($statusdoc);
 
+        $activeNav = UrlUtility::getActiveLinkArray('main');
 
         return view('app.docs.create')
-            ->with('activeNav', 'main')
+            ->with('activeNav', $activeNav)
             ->with('typedoc', $typedoc)
             ->with('statusdoc', $statusdoc);
 
@@ -110,7 +109,6 @@ class DocController extends Controller
         );
         $validator = Validator::make(Input::all(), $rules);
 
-        // process the login
         if ($validator->fails()) {
             return Redirect::to('docs/create')
                 ->withInput()
@@ -118,7 +116,7 @@ class DocController extends Controller
         } else {
             // store
             $DocExists = Doc::find(Input::get('marking'));
-            if ($DocExists === null) { //такого документа еще нет
+            if ($DocExists == null) { //такого документа еще нет
                 $doc = new Doc;
                 $doc->marking = Input::get('marking');
                 $doc->description = Input::get('description');
@@ -164,23 +162,21 @@ class DocController extends Controller
     {
         $doc = Doc::find($marking);
 
-        // show the view and pass the doc to it
+        $activeNav = UrlUtility::getActiveLinkArray('main');
+
         return view('app.docs.show')
-            ->with('activeNav', 'main')
+            ->with('activeNav', $activeNav)
             ->with('doc', $doc);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     */
     public function edit($marking)
     {
         $doc = Doc::find($marking);
 
-        // show the edit form and pass the doc
+        $activeNav = UrlUtility::getActiveLinkArray('main');
+
         return view('app.docs.edit')
-            ->with('activeNav', 'main')
+            ->with('activeNav', $activeNav)
             ->with('doc', $doc);
     }
 

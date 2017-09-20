@@ -8,7 +8,7 @@
     @include('app/bars/navbar')
     <div class="container">
         <h4>Обработка документов </h4>
-        <a class="btn btn-info" href="{{ URL::to('docs/create') }}">Создать документ</a>
+        <a class="btn btn-info" href="{{ url('docs/create') }}">Создать документ</a>
         <br>
         <br>
         <!-- will be used to show any messages -->

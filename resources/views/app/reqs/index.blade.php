@@ -36,7 +36,7 @@
                     <td>{{ $value->id }}</td>
                     <td>{{ $value->status }}</td>
                     <td>{{ $value->description }}</td>
-                    <td>{{ $value->create_date }}</td>
+                    <td>{{ $value->created_at }}</td>
                     <td>{{ $value->author }}</td>
                     <td>{{ $value->performer }}</td>
                     <td>{{ $value->performdate }}</td>
@@ -53,6 +53,14 @@
                                     Изменить</a>
                             </div>
 
+                            <div style="margin:5px;">
+                                {{ Form::open(array('url' => 'reqs/' . $value->id, 'class' => 'delbutton' )) }}
+                                {{ Form::hidden('_method', 'DELETE') }}
+                                {{ Form::submit('Удалить', array('class' => 'btn btn-danger',  )) }}
+                                {{ Form::close() }}
+                            </div>
+
+
                         </div>
 
                     </td>
@@ -63,7 +71,7 @@
 
         <script>
             $('.delbutton').on("submit", function () {
-                return confirm("Вы уверены, что хотите удалить этот документ?");
+                return confirm("Вы уверены, что хотите удалить эту заявку?");
             });
         </script>
 
