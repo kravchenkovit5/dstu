@@ -42,7 +42,9 @@
         var dt = $('#example').DataTable({
             "rowCallback": function (row, data, index) {
                 if (data.status == "не прочитано") {
-                    $('td', row).css("font-weight", "bold");
+                    console.log(row);
+                    $(row).css("font-weight", "bold");
+                    //$('td', row).css("font-weight", "bold");
                 }
             },
             "language": {"url": "{{ asset('js/Russian.json') }}"},
@@ -57,7 +59,7 @@
                 {"data": "id"},
                 {"data": "subject"},
                 {"data": "sender"},
-                {"data": "create_date"},
+                {"data": "created_at"},
                 {"data": "status"}
             ],
             "order": [[1, 'asc']]
@@ -73,7 +75,7 @@
             var row = dt.row(tr);
             var idx = $.inArray(tr.attr('id'), detailRows);
 
-            if (row.child.isShown()) {
+            if (row.child.isShown()) { //открыть кнопкой содержание письма
                 tr.removeClass('details');
                 row.child.hide();
 
@@ -81,14 +83,20 @@
                 detailRows.splice(idx, 1);
             }
             else {
-                tr.addClass('details');
+                tr.addClass('details');     //скрыть содержание письма и установить статус прочитано
                 row.child(format(row.data())).show();
 
                 if (idx === -1) {
                     detailRows.push(tr.attr('id'));
                 }
-                tr[0].childNodes[5].textContent = 'прочитано';
-                console.log(tr.css('font-weight','normal'));
+
+                if (tr[0].childNodes[5].textContent = 'не прочитано') {
+                    tr[0].childNodes[5].textContent = 'прочитано';
+                    $(tr).css("font-weight", "normal");
+                    console.log(tr[0].childNodes[1].textContent);
+                    setStatusMessage(tr[0].childNodes[1].textContent);
+                }
+
             }
 
         });
@@ -101,6 +109,22 @@
         });
 
     });
+
+    function setStatusMessage(number) {
+        $.ajax({
+            type: "GET", //GET or POST or PUT or DELETE verb
+            url: "http://localhost:7000/dstu/public/set_status_mess/" + number,
+            dataType: 'html',
+            contentType: "application/html",
+            processdata: false,
+            success: function (msg) {
+                console.log(msg);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    }
 
 
 </script>

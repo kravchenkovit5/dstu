@@ -30,4 +30,5 @@ Route::get('/messages', 'PageController@showMessages');
 Route::get('/select_all_mess', 'MessageController@selectAllMess');
 Route::get('/select_user_mess', 'MessageController@selectUserMess');
 Route::get('/select_not_read_mess', 'MessageController@selectNotReadMess');
+Route::get('/set_status_mess/{num}', 'MessageController@setStatusMess');
 

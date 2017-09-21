@@ -34,7 +34,7 @@ class MessageController extends Controller
     public function selectMessagesWithCondition($condition)
     {
 
-        $res = Message::select('id', 'subject', 'sender', 'create_date', 'status', 'body')
+        $res = Message::select('id', 'subject', 'sender', 'created_at', 'status', 'body')
             ->where($condition)
             ->get()
             ->toArray();
@@ -42,5 +42,12 @@ class MessageController extends Controller
         $fech['data'] = $res;
 
         return json_encode($fech);
+    }
+
+    public function setStatusMess($num)
+    {
+      $mess = Message::find($num);
+      $mess->status = "read";
+      $mess->save();
     }
 }

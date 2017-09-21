@@ -47,7 +47,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="{{$activeNav['messages']}}"><a href="{{ url('/messages') }}">Сообщения</a></li>
+                <li class="{{$activeNav['messages']}}"><a href="{{ url('/messages') }}">Сообщения{{ $activeNav['notread_mess']  }}</a></li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" id="user">User <span class="caret"></span></a>
 
