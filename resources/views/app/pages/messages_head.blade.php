@@ -42,7 +42,7 @@
         var dt = $('#example').DataTable({
             "rowCallback": function (row, data, index) {
                 if (data.status == "не прочитано") {
-                    console.log(row);
+                    //console.log('not read');
                     $(row).css("font-weight", "bold");
                     //$('td', row).css("font-weight", "bold");
                 }
@@ -59,6 +59,7 @@
                 {"data": "id"},
                 {"data": "subject"},
                 {"data": "sender"},
+                {"data": "recipient"},
                 {"data": "created_at"},
                 {"data": "status"}
             ],
@@ -90,11 +91,15 @@
                     detailRows.push(tr.attr('id'));
                 }
 
-                if (tr[0].childNodes[5].textContent = 'не прочитано') {
-                    tr[0].childNodes[5].textContent = 'прочитано';
-                    $(tr).css("font-weight", "normal");
-                    console.log(tr[0].childNodes[1].textContent);
-                    setStatusMessage(tr[0].childNodes[1].textContent);
+//                console.log( 'User : ' + readCookie('user'));
+//                console.log( 'Type : ' + readCookie('usertype'));
+                if (readCookie('usertype') == 'simple_user') {
+                    if (tr[0].childNodes[5].textContent = 'не прочитано') {
+                        tr[0].childNodes[5].textContent = 'прочитано';
+                        $(tr).css("font-weight", "normal");
+                        //console.log(document.cookie);
+                        setStatusMessage(tr[0].childNodes[1].textContent);
+                    }
                 }
 
             }
@@ -124,6 +129,17 @@
                 console.log(xhr);
             }
         });
+    }
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
     }
 
 

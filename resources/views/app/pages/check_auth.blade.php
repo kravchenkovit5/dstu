@@ -8,12 +8,8 @@
         success: function (userdata) {
             console.log(userdata);
             if (userdata['is_user_logged']) {
-                console.log(userdata['name'] + ' is logged in');
 
-                //var pass = "userdata=" + JSON.stringify(data);
-                //sendUserData(userdata);
-
-                document.cookie = 'user='+userdata['name']+';';
+                document.cookie = 'user=' + userdata['name'] + ';';
 
                 var adminsRoles = new Set();
                 adminsRoles.add('Super Administrator');
@@ -23,17 +19,19 @@
 
                 $('#user').html(userdata['name'] + '<span class="caret">');
 
+                console.log(userdata['name'] + ' has rol ' +  userdata['usertype']);
+
                 if (adminsRoles.has(userdata['usertype'])) {
                     $('.is_user').remove();
                     document.cookie = 'get_requests=all;';
                     document.cookie = 'usertype=admin;';
-                }else{
+                } else {
                     $('.is_admin').remove();
                     document.cookie = 'get_requests=by_user;';
                     document.cookie = 'usertype=simple_user;';
+                    setNotReadMess(userdata['name']);
                 }
             } else {
-                console.log(userdata['name'] + ' is not logged in');
                 window.location.replace('{{config('app.metrolog')}}');
             }
         },
@@ -41,24 +39,30 @@
             console.log('Error while get {{config('app.check_auth')}}');
         }
     });
-/*
-    function sendUserData(userdata) {
+
+
+    function setNotReadMess(username) {
+
+        var urlMess = '{{ url('select_not_read_mess') }}' + '/' + username;
+        console.log('urlMess = ' + urlMess);
         $.ajax({
             type: "GET", //GET or POST or PUT or DELETE verb
-            url: "http://localhost:7000/dstu/public/test", // Location of the service
-            data: {'userdata': JSON.stringify(userdata)}, //Data sent to server
-            dataType: 'html',
-            contentType: "application/html",
-            processdata: false,
-            success: function (msg) {//On Successfull service call
-                console.log(msg);
+            url: urlMess, // Location of the service
+            dataType: 'json',
+            success: function (result) {//On Successfull service call
+
+                if (result > 0) {
+                    $('#mess').html('Сообщения(' + result + ')');
+                } else {
+                    $('#mess').html('Сообщения');
+                }
             },
             error: function (xhr) {
                 console.log(xhr);
             } // When Service call fails
         });
+
     }
-*/
 
 </script>
 

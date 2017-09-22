@@ -8,6 +8,10 @@
     @include('app/bars/navbar')
 
     <div class="container">
+        <a href="{{url('docs')}}">
+            <img src="{{asset('img/back.png')}}" alt="" height="20" width="20"/> Вернуться к списку документов
+        </a>
+
         <h4>Просмотр {{ $doc->marking }}</h4>
         <div class="jumbotron">
             <p style="font-size: 18px">
@@ -20,9 +24,11 @@
                 <strong>Ответственный по актуализации:</strong> {{ $doc->actualuser }}<br><br>
                 <strong>Номер заявки:</strong> {{ $doc->id_request }}<br><br>
                 @if (!empty($doc->reference))
-                    <strong>Электронный документ:</strong> <a href="{{ url($doc->getRef()) }}" target = "blank">Просмотреть документ</a>
+                    <strong>Электронный документ:</strong>
+                    <a href="{{ url($doc->getRef()) }}" target="blank">просмотреть</a>
                 @else
-                    <strong>Электронный документ:</strong> <strong style="background-color:#d9534f; color: white; padding: 5px;"> Нет ссылки  </strong>
+                    <strong>Электронный pdf документ:</strong> <strong
+                            style="background-color:#d9534f; color: white; padding: 5px;"> Нет ссылки </strong>
                 @endif
 
             </p>

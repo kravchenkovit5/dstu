@@ -10,31 +10,36 @@ class MessageController extends Controller
     {
         return $this->selectMessagesWithCondition('');
     }
+
     public function selectUserMess()
     {
-        $userType = ( isset($_COOKIE['usertype']) ? $_COOKIE['usertype'] : '' );
-        $user = ( isset($_COOKIE['user']) ? $_COOKIE['user'] : '' );
+        $userType = (isset($_COOKIE['usertype']) ? $_COOKIE['usertype'] : '');
+        $user = (isset($_COOKIE['user']) ? $_COOKIE['user'] : '');
         $whereCondition = [];
-        if ($userType == 'simple_user'){
+        if ($userType == 'simple_user') {
             $whereCondition = ['recipient' => $user];
         }
 
         return $this->selectMessagesWithCondition($whereCondition);
     }
 
-    public function selectNotReadMess()
+    public function selectNotReadMess($username)
     {
-        $user = ( isset($_COOKIE['user']) ? $_COOKIE['user'] : '' );
-        $whereCondition = ['recipient' => $user, 'status' => 'notread'];
-        $notReadMess = json_decode($this->selectMessagesWithCondition($whereCondition));
-        $count = count($notReadMess->data);
-        return $count;
+        if (!empty($username)) {
+            $whereCondition = ['recipient' => $username, 'status' => 'notread'];
+            $res = Message::select('id')->where($whereCondition)->get();
+            $count = $res->count();
+            return $count;
+        }else{
+            return 0;
+        }
+
     }
 
     public function selectMessagesWithCondition($condition)
     {
 
-        $res = Message::select('id', 'subject', 'sender', 'created_at', 'status', 'body')
+        $res = Message::select('id', 'subject', 'sender', 'recipient', 'created_at', 'status', 'body')
             ->where($condition)
             ->get()
             ->toArray();
@@ -46,8 +51,8 @@ class MessageController extends Controller
 
     public function setStatusMess($num)
     {
-      $mess = Message::find($num);
-      $mess->status = "read";
-      $mess->save();
+        $mess = Message::find($num);
+        $mess->status = "read";
+        $mess->save();
     }
 }

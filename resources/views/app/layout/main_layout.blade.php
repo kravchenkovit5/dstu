@@ -2,6 +2,11 @@
 <html lang="ru">
 <head>
     @yield('head')
+    <style>
+        body{
+            /*background: #a4c9fa;*/
+        }
+    </style>
 </head>
 <body>
 <noscript>

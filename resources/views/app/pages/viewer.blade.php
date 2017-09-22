@@ -2,6 +2,10 @@
 
 @section('head')
     @include('app/pages/main_head')
+    {{--<style>--}}
+        {{--body{ background-image:url('../img/metrolog.jpg');--}}
+        {{--}--}}
+    {{--</style>--}}
 @endsection
 
 @section('body')

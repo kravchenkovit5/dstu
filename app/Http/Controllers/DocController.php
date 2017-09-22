@@ -121,7 +121,7 @@ class DocController extends Controller
                 $doc->marking = Input::get('marking');
                 $doc->description = Input::get('description');
                 $doc->typedoc = Input::get('typedoc');
-                $doc->statusdoc = Input::get('statusdoc');
+                $doc->statusdoc = 1; //в начале всегда статус "Создана"
                 $doc->note = Input::get('note');
                 $doc->id_request = Input::get('id_request');
 

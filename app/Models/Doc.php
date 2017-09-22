@@ -38,4 +38,9 @@ class Doc extends Model
         return StatusDocument::find_in_selected($value); //возвращаем название в читабельном виде        
     }
 
+    public function getIdRequestAttribute($value){
+        if ( $value === 0 ) return '';
+        else return $value;
+    }
+
 }

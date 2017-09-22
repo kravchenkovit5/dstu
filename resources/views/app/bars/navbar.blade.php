@@ -47,7 +47,7 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="{{$activeNav['messages']}}"><a href="{{ url('/messages') }}">Сообщения{{ $activeNav['notread_mess']  }}</a></li>
+                <li class="{{$activeNav['messages']}}"><a href="{{ url('/messages') }}" id="mess">Сообщения </a></li>
                 <li class="dropdown">
                     <a data-toggle="dropdown" id="user">User <span class="caret"></span></a>
 
@@ -63,24 +63,5 @@
         </div>
     </div>
 </nav>
-
-
-<script>
-    $.ajax({
-        type: "GET", //GET or POST or PUT or DELETE verb
-        url: "{{ url('selectnotreadmess')  }}", // Location of the service
-        dataType: 'json',
-        success: function (result) {//On Successfull service call
-            //console.log(result);
-            if (result > 0) {
-                $('#mess').html('Сообщения(' + result + ')');
-            } else {
-                $('#mess').html('Сообщения');
-            }
-        },
-        error: function (xhr) {
-            //console.log(xhr);
-        } // When Service call fails
-    });
 
 </script>
